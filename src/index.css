@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@1&family=Quicksand:wght@600&family=Sora:wght@600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 96px;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-white font-sans text-ink antialiased;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display font-semibold text-ink;
+    letter-spacing: -0.03em;
+  }
+  ::selection {
+    background: #f26a3d;
+    color: #0f2233;
+  }
+  :focus-visible {
+    outline: 2px solid #0b6b75;
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-container;
+    padding-left: clamp(16px, 4vw, 40px);
+    padding-right: clamp(16px, 4vw, 40px);
+  }
+  .eyebrow {
+    @apply text-[13px] font-semibold uppercase tracking-[0.16em] text-tealDark;
+  }
+  .field {
+    @apply h-[52px] w-full rounded-2xl border border-line bg-white px-4 text-[15px] text-ink placeholder:text-muted/70 transition-colors focus:border-tealDark focus:outline-none focus:ring-4 focus:ring-teal/15;
+  }
+}
+
+/* Hero slider progress bar */
+@keyframes heroProgress {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
+/* Hide scrollbar on sliders (still scrollable) */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Fade-up on scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
