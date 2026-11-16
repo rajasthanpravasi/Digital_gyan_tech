@@ -15,16 +15,18 @@ export default function About() {
           </Reveal>
         </div>
 
-        <dl className="mt-20 grid grid-cols-1 border-t border-line sm:grid-cols-2 lg:grid-cols-4">
+        <dl className="mt-20 grid grid-cols-1 border-t border-line sm:grid-cols-3">
           {about.stats.map((stat, i) => (
             <Reveal
               key={stat.label}
               delay={i * 90}
               className={`flex flex-col-reverse pt-10 pb-2 sm:pr-8 ${
-                i > 0 ? 'lg:border-l lg:border-line lg:pl-8' : ''
-              } ${i % 2 === 1 ? 'sm:border-l sm:border-line sm:pl-8' : ''}`}
+                i > 0 ? 'sm:border-l sm:border-line sm:pl-8' : ''
+              }`}
             >
-              <dt className="mt-4 max-w-[220px] text-[15px] leading-snug text-muted">{stat.label}</dt>
+              <dt className="mt-4 max-w-[220px] text-[15px] leading-snug text-muted">
+                {stat.label}
+              </dt>
               <dd className="font-display text-[52px] font-semibold leading-none tracking-tightest text-ink">
                 {stat.value}
                 {stat.suffix && <span className={stat.suffixClass}>{stat.suffix}</span>}

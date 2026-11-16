@@ -682,7 +682,7 @@ export const about = {
   stats: [
     { value: '500', suffix: '+', suffixClass: 'text-coral', label: 'Businesses trust us' },
     { value: '3', suffix: '', label: 'Offices — Pune, Jaipur, Dubai' },
-    { value: 'ISO', suffix: '', label: 'Certified quality processes' },
+  
     { value: '360', suffix: '°', suffixClass: 'text-teal', label: 'IT, marketing & design under one roof' },
   ],
 };
@@ -824,7 +824,7 @@ export const footer = {
         { label: 'About us', href: '#about' },
         { label: 'Our clients', href: '#our-clients' },
         { label: 'Healthcare marketing', href: '#/healthcare' },
-        { label: 'ISO certified', href: '#about' },
+        // { label: 'ISO certified', href: '#about' },
         { label: 'Contact us', href: '#contact' },
       ],
     },

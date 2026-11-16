@@ -149,13 +149,13 @@ export default function ServicePage({ page }) {
       {/* ---------- Why us ---------- */}
       <section aria-labelledby="why-title" className="bg-white py-28">
         <div className="container-x grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-20">
-          <Reveal>
+          {/* <Reveal>
             <SectionHeading id="why-title" title="What you can *count on.*" />
             <p className="mt-6 max-w-[460px] text-[17px] leading-[1.7] text-muted">
               One ISO-certified team across Pune, Jaipur and Dubai — so strategy, design, build and marketing all stay
               connected.
             </p>
-          </Reveal>
+          </Reveal> */}
           <Reveal delay={120}>
             <ul className="divide-y divide-line rounded-3xl border border-line bg-white px-6 shadow-card sm:px-8">
               {page.benefits.map((b) => (
