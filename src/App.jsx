@@ -21,7 +21,7 @@ function Home() {
   return (
     <>
       <Hero />
-      <ClientStrip />
+      {/* <ClientStrip /> */}
       <About />
       <Services />
       <HealthcareTeaser />

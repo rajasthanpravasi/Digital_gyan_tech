@@ -39,7 +39,7 @@ function Pulse({ className = '' }) {
  * Every piece of text comes from `healthcare` in data.js, in the same order as the content brief.
  */
 export default function HealthcarePage() {
-  const { hero, intro, partner, services, experience, vision, closing } = healthcare;
+  const { hero, trust, intro, partner, services, experience, vision, closing } = healthcare;
   const [imgFailed, setImgFailed] = useState(false);
 
   useEffect(() => {
@@ -121,8 +121,27 @@ export default function HealthcarePage() {
         </div>
       </section>
 
+      {/* ---------- Trust banner ---------- */}
+      <section aria-label="Why healthcare brands trust us" className="border-y border-line bg-tealTint py-10 sm:py-12">
+        <Reveal className="container-x">
+          <div className="flex flex-col items-center gap-5 text-center lg:flex-row lg:justify-between lg:text-left">
+            <div className="flex flex-col items-center gap-4 lg:flex-row lg:gap-6">
+              <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white">
+                <HeartPulse aria-hidden="true" className="h-6 w-6 text-coral" strokeWidth={2.2} />
+              </span>
+              <h2 className="font-display text-[clamp(22px,2.6vw,32px)] font-semibold leading-[1.2] tracking-tight text-ink">
+                <Highlight text={trust.headline} />
+              </h2>
+            </div>
+            <p className="max-w-[420px] text-[17px] font-medium leading-snug text-tealDark">
+              <Highlight text={trust.subline} />
+            </p>
+          </div>
+        </Reveal>
+      </section>
+
       {/* ---------- Intro (paragraphs 2 & 3) ---------- */}
-      <section aria-label="About our healthcare work" className="border-y border-line bg-ivory py-24">
+      <section aria-label="About our healthcare work" className="border-b border-line bg-ivory py-24">
         <div className="container-x grid gap-10 lg:grid-cols-2 lg:gap-20">
           <Reveal>
             <p className="font-display text-[clamp(22px,2.4vw,30px)] font-semibold leading-[1.3] tracking-tight text-ink">

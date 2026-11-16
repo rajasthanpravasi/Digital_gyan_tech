@@ -15,6 +15,7 @@ const scrollToForm = () => document.getElementById('enquire')?.scrollIntoView({ 
 /**
  * One template for every dropdown sub-page (IT Consulting, Branding, Logo Design …).
  * All copy comes from `servicePages` in data.js.
+ * Pages no longer have a `title` field: the headline / summary are used instead.
  */
 export default function ServicePage({ page }) {
   const group = serviceGroups.find((g) => g.id === page.group);
@@ -26,11 +27,11 @@ export default function ServicePage({ page }) {
   const interest = page.slug === 'lead-generation' ? 'Lead generation' : page.slug === 'e-commerce' ? 'Website development' : group.interest;
 
   useEffect(() => {
-    document.title = `${page.title} — Digital Gyan Technology`;
+    document.title = `${group.label} — Digital Gyan Technology`;
     return () => {
       document.title = 'Digital Gyan Technology — IT, Marketing & Design';
     };
-  }, [page]);
+  }, [page, group]);
 
   return (
     <>
@@ -43,21 +44,13 @@ export default function ServicePage({ page }) {
                 <a href="#top" className="transition-colors hover:text-ink">Home</a>
               </li>
               <li aria-hidden="true"><ChevronRight className="h-3.5 w-3.5" /></li>
-              <li>
-                <a href={`#${group.id}`} className="transition-colors hover:text-ink">{group.label}</a>
-              </li>
-              <li aria-hidden="true"><ChevronRight className="h-3.5 w-3.5" /></li>
-              <li aria-current="page" className="text-ink">{page.title}</li>
+              <li aria-current="page" className="text-ink">{group.label}</li>
             </ol>
           </nav>
 
           <div className="mt-12 grid items-center gap-16 lg:grid-cols-[1.1fr_1fr] lg:gap-14">
             <Reveal key={page.slug}>
-              <p className="inline-flex items-center gap-2.5 rounded-full bg-tealTint px-4 py-2 text-[13px] font-semibold text-tealDark">
-                <span className="h-2 w-2 rounded-full bg-coral" aria-hidden="true" />
-                {group.label} · {page.title}
-              </p>
-              <h1 id="service-title" className="mt-7 text-[clamp(38px,5vw,64px)] leading-[1.05]">
+              <h1 id="service-title" className="text-[clamp(38px,5vw,64px)] leading-[1.05]">
                 <Highlight text={page.headline} />
               </h1>
               <p className="mt-7 max-w-[540px] text-[18px] leading-[1.65] text-muted">{page.intro}</p>
@@ -95,8 +88,8 @@ export default function ServicePage({ page }) {
                       <Icon aria-hidden="true" className="h-6 w-6 text-ink" strokeWidth={2} />
                     </span>
                     <div>
-                      <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-tealDark">{group.label}</p>
-                      <p className="mt-1 font-display text-[18px] font-semibold tracking-tight text-ink">{siblings.length} specialist services</p>
+                      <p className="font-display text-[18px] font-semibold tracking-tight text-ink">{group.label}</p>
+                      <p className="mt-1 text-[14px] text-muted">{siblings.length} specialist services</p>
                     </div>
                   </div>
                   <ul className="-mx-2 mt-3">
@@ -114,7 +107,7 @@ export default function ServicePage({ page }) {
                           >
                             <SIcon aria-hidden="true" className="h-[18px] w-[18px] shrink-0 text-tealDark" strokeWidth={2} />
                             <span className={`flex-1 text-[15px] ${current ? 'font-semibold text-ink' : 'font-medium text-muted group-hover:text-ink'}`}>
-                              {s.title}
+                              {s.summary}
                             </span>
                             {current ? (
                               <span className="rounded-full bg-white px-2.5 py-0.5 text-[11.5px] font-semibold text-tealDark">You’re here</span>
@@ -137,7 +130,7 @@ export default function ServicePage({ page }) {
       <section aria-labelledby="included-title" className="bg-ivory py-28">
         <div className="container-x">
           <Reveal className="max-w-[720px]">
-            <SectionHeading id="included-title" eyebrow="What’s included" title={`${page.title}, *done properly.*`} />
+            <SectionHeading id="included-title" title="What’s *included.*" />
           </Reveal>
           <ul className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {page.offerings.map((o, i) => (
@@ -157,7 +150,7 @@ export default function ServicePage({ page }) {
       <section aria-labelledby="why-title" className="bg-white py-28">
         <div className="container-x grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-20">
           <Reveal>
-            <SectionHeading id="why-title" eyebrow="Why Digital Gyan" title="What you can *count on.*" />
+            <SectionHeading id="why-title" title="What you can *count on.*" />
             <p className="mt-6 max-w-[460px] text-[17px] leading-[1.7] text-muted">
               One ISO-certified team across Pune, Jaipur and Dubai — so strategy, design, build and marketing all stay
               connected.
@@ -184,7 +177,7 @@ export default function ServicePage({ page }) {
       <section aria-labelledby="explore-title" className="bg-white py-28">
         <div className="container-x">
           <Reveal>
-            <SectionHeading id="explore-title" eyebrow="Explore more" title="Need the *whole journey?*" />
+            <SectionHeading id="explore-title" title="Need the *whole journey?*" />
           </Reveal>
           <div className="mt-14 grid gap-6 md:grid-cols-2">
             {others.map((g, i) => {
@@ -203,7 +196,7 @@ export default function ServicePage({ page }) {
                             href={servicePath(p.slug)}
                             className="inline-flex items-center gap-1.5 rounded-full border border-line bg-ivory px-4 py-2 text-[14px] font-medium text-ink transition hover:border-coral hover:bg-white"
                           >
-                            {p.title}
+                            {p.summary}
                             <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5 text-coral" />
                           </a>
                         </li>
@@ -220,7 +213,7 @@ export default function ServicePage({ page }) {
       <Contact
         id="enquire"
         defaultInterest={interest}
-        title={`Let’s talk about *${page.title.toLowerCase() === 'ui/ux' ? 'UI/UX' : page.title}.*`}
+        title="Let’s talk about *your project.*"
         text="Tell us a little about your business and goals. We reply within one working day, Monday to Saturday, 9am–6pm."
       />
     </>

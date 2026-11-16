@@ -535,6 +535,11 @@ export const healthcare = {
   brand: 'Digital Gyan Technology',
   title: 'Transforming Healthcare Through *Digital Innovation*',
   tagline: 'Your Healthcare Brand. Our Digital Expertise. One Complete Growth Solution.',
+
+   trust: {
+    headline: "Pune's Most Trusted Healthcare Marketing Agency",
+    subline: 'Backed by 15+ Years of Industry Experience.',
+  },
   intro: [
     'At Digital Gyan Technology, we believe that healthcare deserves more than just an online presence. It deserves a strong digital identity, meaningful communication and a strategy that builds trust.',
     'With experience working alongside hospitals, clinics and healthcare professionals, we understand the unique communication and marketing requirements of the healthcare industry.',
@@ -607,7 +612,7 @@ export const hero = {
   slides: [
     {
       tab: 'Digital growth',
-      eyebrow: 'ISO Certified · Pune · Jaipur · Dubai',
+      // eyebrow: 'ISO Certified · Pune · Jaipur · Dubai',
       title: 'Putting your business on the *digital track.*',
       text: 'IT consulting, websites, digital marketing and design — handled by one expert team, with strategies tailored to make your brand stand out in a crowded online world.',
       primaryCta: { label: 'Get a free consultation', href: '#contact' },
@@ -617,7 +622,7 @@ export const hero = {
     },
     {
       tab: 'IT Solutions',
-      eyebrow: 'IT Solutions',
+      // eyebrow: 'IT Solutions',
       title: 'Software that works *the way you do.*',
       text: 'IT consulting, custom applications, mobile apps and e-commerce — planned, built, launched and supported by one team.',
       primaryCta: { label: 'Explore IT Solutions', href: '#it-solutions' },
@@ -627,7 +632,7 @@ export const hero = {
     },
     {
       tab: 'Marketing',
-      eyebrow: 'Marketing Solutions',
+      // eyebrow: 'Marketing Solutions',
       title: 'Marketing that brings *real enquiries.*',
       text: 'SEO, social media, content and lead generation — measured, reported and improved every single month.',
       primaryCta: { label: 'Explore Marketing', href: '#marketing' },
@@ -637,7 +642,7 @@ export const hero = {
     },
     {
       tab: 'Design Studio',
-      eyebrow: 'Design Studio',
+      //  eyebrow: 'Design Studio',
       title: 'Design that makes your brand *unforgettable.*',
       text: 'Logos, brochures, catalogues, menus and videos crafted to look great everywhere your customers see you.',
       primaryCta: { label: 'Explore Design Studio', href: '#design-studio' },
@@ -647,7 +652,7 @@ export const hero = {
     },
     {
       tab: 'Healthcare',
-      eyebrow: 'Healthcare Digital Marketing',
+      //  eyebrow: 'Healthcare Digital Marketing',
       title: 'Transforming healthcare through *digital innovation.*',
       text: 'Branding, websites and patient-friendly marketing for hospitals, clinics and healthcare professionals.',
       primaryCta: { label: 'Healthcare solutions', href: '#/healthcare' },

@@ -6,6 +6,15 @@ import Button from './ui/Button';
 import Reveal from './ui/Reveal';
 import { company, contact } from '../data';
 
+/*
+ * FORM SETUP (one time):
+ * 1. Go to https://web3forms.com, enter info@digitalgyantech.com and click "Create Access Key".
+ * 2. The key arrives on that email. Paste it below.
+ * Every enquiry is then emailed to that address straight from the website,
+ * without the visitor needing an email app.
+ */
+const WEB3FORMS_ACCESS_KEY = '2c14b856-682d-4cac-a3f0-da064c94adb9';
+
 const channels = [
   { icon: Phone, label: company.phone, href: company.phoneHref },
   { icon: Mail, label: company.email, href: company.emailHref },
@@ -24,32 +33,58 @@ function Field({ id, label, children }) {
 }
 
 export default function Contact({ id = 'contact', defaultInterest, title, text }) {
-  const [sent, setSent] = useState(false);
+  // status: 'idle' | 'sending' | 'success' | 'error'
+  const [status, setStatus] = useState('idle');
 
-  // No backend: the form opens the visitor's email app with the enquiry pre-filled.
-  // Swap this handler for your form service / API endpoint when you have one.
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = Object.fromEntries(new FormData(e.currentTarget));
-    const subject = `New enquiry: ${data.interest}`;
-    const body = [
-      `Name: ${data.name}`,
-      `Phone: ${data.phone}`,
-      `Email: ${data.email}`,
-      `Interested in: ${data.interest}`,
-      '',
-      data.message,
-    ].join('\n');
-    window.location.href = `${company.emailHref}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    setSent(true);
+    const form = e.currentTarget;
+    const data = Object.fromEntries(new FormData(form));
+
+    // Hidden spam trap: real visitors never fill this in
+    if (data.botcheck) return;
+
+    if (!WEB3FORMS_ACCESS_KEY || WEB3FORMS_ACCESS_KEY.startsWith('PASTE_')) {
+      setStatus('error');
+      return;
+    }
+
+    setStatus('sending');
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: `New website enquiry: ${data.interest}`,
+          from_name: 'Digital Gyan Technology website',
+          name: data.name,
+          phone: data.phone,
+          email: data.email,
+          interest: data.interest,
+          message: data.message || '(no message)',
+        }),
+      });
+      const result = await res.json();
+      if (result.success) {
+        setStatus('success');
+        form.reset();
+      } else {
+        setStatus('error');
+      }
+    } catch {
+      setStatus('error');
+    }
   };
+
+  const sending = status === 'sending';
 
   return (
     <section id={id} aria-labelledby={`${id}-title`} className="bg-tealTint py-28">
       <div className="container-x grid gap-14 lg:grid-cols-[1fr_1.05fr] lg:gap-16">
         {/* Left */}
         <Reveal>
-          <SectionHeading id={`${id}-title`} eyebrow={contact.eyebrow} title={title ?? contact.title} />
+          <SectionHeading id={`${id}-title`} title={title ?? contact.title} />
           <p className="mt-6 max-w-[480px] text-[18px] leading-[1.7] text-muted">{text ?? contact.text}</p>
 
           <ul className="mt-10 space-y-4">
@@ -77,6 +112,9 @@ export default function Contact({ id = 'contact', defaultInterest, title, text }
             <p className="mt-2 text-[15px] text-muted">Fields marked * are required.</p>
 
             <form onSubmit={handleSubmit} className="mt-8 space-y-5">
+              {/* Spam trap (hidden from people) */}
+              <input type="checkbox" name="botcheck" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
+
               <Field id="name" label="Full name *">
                 <input id="name" name="name" type="text" autoComplete="name" required className="field" placeholder="Your name" />
               </Field>
@@ -110,12 +148,19 @@ export default function Contact({ id = 'contact', defaultInterest, title, text }
                   placeholder="Tell us about your business and goals"
                 />
               </Field>
-              <Button type="submit" variant="coral" className="w-full">
-                Send message
-                <Send aria-hidden="true" className="h-[18px] w-[18px]" strokeWidth={2.2} />
+              <Button type="submit" variant="coral" className="w-full" disabled={sending}>
+                {sending ? 'Sending…' : 'Send message'}
+                {!sending && <Send aria-hidden="true" className="h-[18px] w-[18px]" strokeWidth={2.2} />}
               </Button>
-              <p role="status" className="min-h-[1.5em] text-center text-[14px] font-medium text-tealDark">
-                {sent ? 'Thanks — your email app should open with your enquiry ready to send.' : ''}
+              <p
+                role="status"
+                className={`min-h-[1.5em] text-center text-[14px] font-medium ${
+                  status === 'error' ? 'text-red-600' : 'text-tealDark'
+                }`}
+              >
+                {status === 'success' && 'Thank you! Your enquiry has been sent. We will reply within one working day.'}
+                {status === 'error' &&
+                  `Sorry, your message could not be sent. Please call ${company.phone} or email ${company.email}.`}
               </p>
             </form>
           </Card>

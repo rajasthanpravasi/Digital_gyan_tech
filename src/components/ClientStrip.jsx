@@ -9,7 +9,7 @@ export default function ClientStrip() {
           {clients.names.map((c) => (
             <li
               key={c.name}
-              className={`whitespace-nowrap font-semibold text-[#6B7385] transition-colors hover:text-ink ${c.className}`}
+              className="whitespace-nowrap font-display text-[18px] font-semibold tracking-tight text-[#6B7385] transition-colors hover:text-ink"
             >
               {c.name}
             </li>
